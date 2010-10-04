@@ -4,13 +4,43 @@ Changelog
 2.0, Unreleased
 ---------------
 
-- Declare dependency for question field in the module edit screen: it should
-  only be shown for optional modules.
+Upgrade notes
+~~~~~~~~~~~~~
+
+This release updates the profile version to *4*. Please use the upgrade
+feature in portal_setup to upgrade the ``euphorie.deployment:default``
+profile to this version.
+
+Feature changes
+~~~~~~~~~~~~~~~
+
+- Replace the collected company details with more generic information. The
+  previous list is still used in the `Dutch RI&E site <http://instrumenten.rie.nl>`_
+  and is now implemented in `tno.euphorie <http//pypi.python.org/pypi/tno.euphorie/>`_.
+  This fixes `ticket 142 <http://code.simplon.biz/tracker/euphorie/ticket/142>`_.
   [wichert]
 
 - Add missing question field to profile questions, and update the XML export
   code to export it. The XML import code and format specification already
   described this field.
+  [wichert]
+
+Bugfixes
+~~~~~~~~
+
+- Handle multiple buttons as returned by IE correctly in the company detail
+  form. This could lead to site errors before.
+  [wichert]
+
+- Fix handling of partial date fields in company details forms.
+  [wichert]
+
+- Add publish permission to country managers. This fixes
+  `TNO ticket 126 <http://code.simplon.biz/tracker/tno-euphorie/ticket/126>`_
+  [wichert]
+
+- Declare dependency for question field in the module edit screen: it should
+  only be shown for optional modules.
   [wichert]
 
 - Fix bug in upgrade step for migration to 2.0rc2 which broke updating of
@@ -20,6 +50,16 @@ Changelog
 
 2.0rc2, September 29, 2010
 --------------------------
+
+Upgrade notes
+~~~~~~~~~~~~~
+
+This release updates the profile version to *3*. Please use the upgrade
+feature in portal_setup to upgrade the ``euphorie.deployment:default``
+profile to this version.
+
+Bugfixes
+~~~~~~~~
 
 - Add ``Copy or Move`` permission information to the published state of 
   the survey workflow. This fixes
@@ -34,7 +74,7 @@ Changelog
   `TNO ticket 121 <http://code.simplon.biz/tracker/tno-euphorie/ticket/121>`_
   [wichert]
 
-- added french translations
+- Add french translations
   [pilz]
 
 

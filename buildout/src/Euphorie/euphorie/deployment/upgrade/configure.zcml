@@ -17,5 +17,24 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="3"
+    destination="4"
+    profile="euphorie.deployment:default"
+    >
+
+    <genericsetup:upgradeStep
+      title="Correct publish permissions"
+      description="Fix problems with country managers not being able to publish surveys."
+      handler=".v2.resetPublishPermission"
+      />
+
+    <genericsetup:upgradeStep
+      title="Migrate company detail data"
+      description="Migrate the company data to split out NL-specific and generic company information"
+      handler=".v2.migrateCompanyTable"
+      />
+
+  </genericsetup:upgradeSteps>
 </configure>
 
