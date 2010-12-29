@@ -104,15 +104,15 @@
           <dl tal:condition="python:actionplan.action_plan or actionplan.prevention_plan or actionplan.requirements">
             <tal:block condition="actionplan/action_plan">
               <dt i18n:translate="report_measure_actionplan">Action plan:</dt>
-              <dd tal:content="actionplan/action_plan">Plan tetx here.</dd>
+              <dd tal:content="actionplan/action_plan">Plan text here.</dd>
             </tal:block>
             <tal:block condition="actionplan/prevention_plan">
               <dt i18n:translate="report_measure_preventionplan">Prevention plan:</dt>
-              <dd tal:content="actionplan/prevention_plan">Plan text here.</dd>
+              <dd tal:content="actionplan/prevention_plan">Prevention text here.</dd>
             </tal:block>
             <tal:block condition="actionplan/requirements">
               <dt i18n:translate="report_measure_requirements">Requirements:</dt>
-              <dd tal:content="actionplan/requirements">Plan text here.</dd>
+              <dd tal:content="actionplan/requirements">Requirements here.</dd>
             </tal:block>
           </dl>
 
@@ -125,6 +125,7 @@
             <tal:block condition="python:actionplan.responsible and actionplan.planning_end and not actionplan.planning_start"
               i18n:translate="report_measure_responsible_and_end"><strong i18n:name="responsible" tal:content="actionplan/responsible">The Hulk</strong> is responsible for this task
               which ends on <tal:span i18n:name="end" content="python:tools.formatDate(actionplan.planning_end)">14 April 2010</tal:span>.</tal:block>
+
             <tal:block condition="python:actionplan.planning_start and not (actionplan.responsible or actionplan.planning_end)"
               i18n:translate="report_measure_start_only">This task starts
               on <tal:span i18n:name="start" content="python:tools.formatDate(actionplan.planning_start)">14 April 2010</tal:span>.</tal:block>
