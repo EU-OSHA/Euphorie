@@ -116,7 +116,7 @@ class ActionPlanReportDownload(grok.View):
 
         t=lambda txt: translate(txt, context=self.request)
 
-        table=Table(TabPropertySet.DEFAULT_WIDTH, TabPropertySet.DEFAULT_WIDTH*5)
+        table=Table(TabPropertySet.DEFAULT_WIDTH*5, TabPropertySet.DEFAULT_WIDTH*15)
         if measure.action_plan:
             table.append(
                     Cell(Paragraph(normal_style, t(_("report_measure_actionplan", default=u"Action plan:")))),
@@ -186,21 +186,25 @@ class ActionPlanReportDownload(grok.View):
             style.Copy(), ParagraphPropertySet()))
 
         style.textProps.italic=False
+        style.textProps.bold=True
         style.textProps.size=32
+        style.textProps.underline=True
         stylesheet.ParagraphStyles.append(ParagraphStyle("Heading 1",
             style.Copy(), ParagraphPropertySet(space_before=240, space_after=60)))
-
-        style.textProps.size=24
+        style.textProps.underline=False
+        style.textProps.size=30
         stylesheet.ParagraphStyles.append(ParagraphStyle("Heading 2",
             style.Copy(), ParagraphPropertySet(space_before=240, space_after=60)))
+        style.textProps.size=28
         stylesheet.ParagraphStyles.append(ParagraphStyle("Heading 3",
             style.Copy(), ParagraphPropertySet(space_before=240, space_after=60)))
+        style.textProps.size=26
         stylesheet.ParagraphStyles.append(ParagraphStyle("Heading 4",
             style.Copy(), ParagraphPropertySet(space_before=240, space_after=60)))
+        style.textProps.size=24
         stylesheet.ParagraphStyles.append(ParagraphStyle("Heading 5",
             style.Copy(), ParagraphPropertySet(space_before=240, space_after=60)))
 
-        style.textProps.bold=True
         stylesheet.ParagraphStyles.append(ParagraphStyle("Measure Heading",
             style.Copy(), ParagraphPropertySet(space_before=60, space_after=20)))
 
