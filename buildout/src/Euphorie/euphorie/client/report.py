@@ -3,7 +3,10 @@ import htmllaundry
 from rtfng.Elements import Document
 from rtfng.Elements import StyleSheet
 from rtfng.document.paragraph import Paragraph
+from rtfng.document.paragraph import Cell
+from rtfng.document.paragraph import Table
 from rtfng.document.section import Section
+from rtfng.PropertySets import TabPropertySet
 from rtfng.Renderer import Renderer
 from sqlalchemy import sql
 from five import grok
@@ -41,25 +44,62 @@ class ActionPlanReportDownload(grok.View):
         return query.all()
 
 
-    def addIntroduction(self, document, section):
-        intro=translate(_("plan_report_intro_1", default=
+    def addIntroduction(self, document):
+        t=lambda txt: translate(txt, context=self.request)
+        normal_style=document.StyleSheet.ParagraphStyles.Normal
+        section=self.createSection(document)
+
+        section.append(Paragraph(
+            document.StyleSheet.ParagraphStyles.Heading1,
+            t(_("plan_report_intro_header", default=u"Introduction"))))
+
+        intro=t(_("plan_report_intro_1", default=
             u"By filling in the list of questions, you have completed a risk "
             u"assessment. This assessment is used to draw up an action plan. "
             u"The progress of this action plan must be discussed annually and "
             u"a small report must be written on the progress. Certain "
             u"subjects might have been completed and perhaps new subjects "
-            u"need to be added."), context=self.request)
-
-        normal_style=document.StyleSheet.ParagraphStyles.Normal
+            u"need to be added."))
         section.append(Paragraph(normal_style, intro))
 
         if self.session.report_comment:
             section.append(Paragraph(normal_style, self.session.report_comment))
 
 
-    def addActionPlan(self, document, section):
+    def addCompanyInformation(self, document):
+        company=self.session.company
+        t=lambda txt: translate(txt, context=self.request)
+        section=self.createSection(document)
+        normal_style=document.StyleSheet.ParagraphStyles.Normal
+        missing=t(_("missing_data", default=u"Not provided"))
+
+        section.append(Paragraph(
+            document.StyleSheet.ParagraphStyles.Heading1,
+            t(_("plan_report_company_header", default=u"Company details"))))
+
+        table=Table(TabPropertySet.DEFAULT_WIDTH*5, TabPropertySet.DEFAULT_WIDTH*15)
+        country=self.request.locale.displayNames.territories.get(company.country.upper(), company.country) \
+                    if company.country else missing
+        table.append(
+                Cell(Paragraph(normal_style, t(_("label_company_country", default=u"Country")))),
+                Cell(Paragraph(normal_style, country)))
+        table.append(
+                Cell(Paragraph(normal_style, t(_("label_employee_numbers", default=u"Number of employees")))),
+                Cell(Paragraph(normal_style, company.employees if company.employees else missing)))
+        table.append(
+                Cell(Paragraph(normal_style, t(_("label_referer", default=u"Through which channel did you learn about this tool?")))),
+                Cell(Paragraph(normal_style, company.referer if company.referer else missing)))
+        section.append(table)
+
+
+    def addActionPlan(self, document):
         survey=self.request.survey
         t=lambda txt: translate(txt, context=self.request)
+        section=self.createSection(document)
+
+        section.append(Paragraph(
+            document.StyleSheet.ParagraphStyles.Heading1,
+            t(_("plan_report_plan_header", default=u"Action plan"))))
 
         normal_style=document.StyleSheet.ParagraphStyles.Normal
         warning_style=document.StyleSheet.ParagraphStyles.Warning
@@ -109,9 +149,6 @@ class ActionPlanReportDownload(grok.View):
 
 
     def addMeasure(self, document, section, measure):
-        from rtfng.document.paragraph import Cell
-        from rtfng.document.paragraph import Table
-        from rtfng.PropertySets import TabPropertySet
         normal_style=document.StyleSheet.ParagraphStyles.Normal
 
         t=lambda txt: translate(txt, context=self.request)
@@ -165,6 +202,23 @@ class ActionPlanReportDownload(grok.View):
                              "end": formatDate(self.request, measure.planning_end)}))))
 
 
+    def createSection(self, document):
+        t=lambda txt: translate(txt, context=self.request)
+        footer=t(_("report_survey_revision",
+            default=u"This report was based on the survey '${title}' of revision date ${date}.",
+            mapping={"title": self.context.published[1],
+                     "date": formatDate(self.request, self.context.published[2])}))
+        # rtfng does not like unicode footers
+        footer=Paragraph(document.StyleSheet.ParagraphStyles.Footer,
+                "".join(["\u%s?" % str(ord(e)) for e in footer]))
+        section=Section()
+        section.Header.append(Paragraph(document.StyleSheet.ParagraphStyles.Normal, self.session.title))
+        section.Footer.append(footer)
+        section.SetBreakType(section.PAGE)
+        document.Sections.append(section)
+        return section
+
+
     def createDocument(self):
         from rtfng.Styles import TextStyle
         from rtfng.Styles import ParagraphStyle
@@ -210,26 +264,14 @@ class ActionPlanReportDownload(grok.View):
 
         document=Document(stylesheet)
         document.SetTitle(self.session.title)
-
-        t=lambda txt: translate(txt, context=self.request)
-        footer=t(_("report_survey_revision",
-            default=u"This report was based on the survey '${title}' of revision date ${date}.",
-            mapping={"title": self.context.published[1],
-                     "date": formatDate(self.request, self.context.published[2])}))
-        # rtfng does not like unicode footers
-        footer=Paragraph(document.StyleSheet.ParagraphStyles.Footer,
-                "".join(["\u%s?" % str(ord(e)) for e in footer]))
-        section=Section()
-        section.Header.append(Paragraph(document.StyleSheet.ParagraphStyles.Normal, self.session.title))
-        section.Footer.append(footer)
-        document.Sections.append(section)
-        return (document, section)
+        return document
 
 
     def render(self):
-        (document, section)=self.createDocument()
-        self.addIntroduction(document, section)
-        self.addActionPlan(document, section)
+        document=self.createDocument()
+        self.addIntroduction(document)
+        self.addCompanyInformation(document)
+        self.addActionPlan(document)
 
         renderer=Renderer()
         output=StringIO()
