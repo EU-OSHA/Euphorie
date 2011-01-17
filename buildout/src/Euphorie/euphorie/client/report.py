@@ -41,7 +41,7 @@ class ActionPlanReportDownload(grok.View):
         return query.all()
 
 
-    def addIntroduction(self, document):
+    def addIntroduction(self, document, section):
         intro=translate(_("plan_report_intro_1", default=
             u"By filling in the list of questions, you have completed a risk "
             u"assessment. This assessment is used to draw up an action plan. "
@@ -50,9 +50,6 @@ class ActionPlanReportDownload(grok.View):
             u"subjects might have been completed and perhaps new subjects "
             u"need to be added."), context=self.request)
 
-        section=Section()
-        document.Sections.append(section)
-
         normal_style=document.StyleSheet.ParagraphStyles.Normal
         section.append(Paragraph(normal_style, intro))
 
@@ -60,9 +57,7 @@ class ActionPlanReportDownload(grok.View):
             section.append(Paragraph(normal_style, self.session.report_comment))
 
 
-    def addActionPlan(self, document):
-        section=Section()
-        document.Sections.append(section)
+    def addActionPlan(self, document, section):
         survey=self.request.survey
         t=lambda txt: translate(txt, context=self.request)
 
@@ -201,19 +196,30 @@ class ActionPlanReportDownload(grok.View):
         stylesheet.ParagraphStyles.append(ParagraphStyle("Heading 5",
             style.Copy(), ParagraphPropertySet(space_before=240, space_after=60)))
 
-
         style.textProps.bold=True
         stylesheet.ParagraphStyles.append(ParagraphStyle("Measure Heading",
             style.Copy(), ParagraphPropertySet(space_before=60, space_after=20)))
 
         document=Document(stylesheet)
-        return document
+        document.SetTitle(self.session.title)
+
+        t=lambda txt: translate(txt, context=self.request)
+        footer=t(_("report_survey_revision",
+            default=u"This report was based on the survey '${title}' of revision date ${date}.",
+            mapping={"title": self.context.published[1],
+                     "date": formatDate(self.request, self.context.published[2])}))
+        # rtfng does not like unicode footers
+        footer="".join(["\u%s?" % str(ord(e)) for e in footer])
+        section=Section()
+        section.Footer.append(footer)
+        document.Sections.append(section)
+        return (document, section)
 
 
     def render(self):
-        document=self.createDocument()
-        self.addIntroduction(document)
-        self.addActionPlan(document)
+        (document, section)=self.createDocument()
+        self.addIntroduction(document, section)
+        self.addActionPlan(document, section)
 
         renderer=Renderer()
         output=StringIO()
