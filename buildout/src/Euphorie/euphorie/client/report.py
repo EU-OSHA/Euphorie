@@ -216,6 +216,7 @@ class ActionPlanReportDownload(grok.View):
         footer=Paragraph(document.StyleSheet.ParagraphStyles.Footer,
                 "".join(["\u%s?" % str(ord(e)) for e in footer]))
         section=Section()
+        section.Header.append(Paragraph(document.StyleSheet.ParagraphStyles.Normal, self.session.title))
         section.Footer.append(footer)
         document.Sections.append(section)
         return (document, section)
