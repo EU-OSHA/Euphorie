@@ -181,6 +181,10 @@ class ActionPlanReportDownload(grok.View):
         stylesheet.ParagraphStyles.append(ParagraphStyle("Warning",
             style.Copy(), ParagraphPropertySet(space_before=10, space_after=10)))
 
+        style.textProps.size=10
+        stylesheet.ParagraphStyles.append(ParagraphStyle("Footer",
+            style.Copy(), ParagraphPropertySet()))
+
         style.textProps.italic=False
         style.textProps.size=32
         stylesheet.ParagraphStyles.append(ParagraphStyle("Heading 1",
@@ -209,7 +213,8 @@ class ActionPlanReportDownload(grok.View):
             mapping={"title": self.context.published[1],
                      "date": formatDate(self.request, self.context.published[2])}))
         # rtfng does not like unicode footers
-        footer="".join(["\u%s?" % str(ord(e)) for e in footer])
+        footer=Paragraph(document.StyleSheet.ParagraphStyles.Footer,
+                "".join(["\u%s?" % str(ord(e)) for e in footer]))
         section=Section()
         section.Footer.append(footer)
         document.Sections.append(section)
