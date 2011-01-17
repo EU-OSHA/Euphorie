@@ -114,18 +114,28 @@ class ActionPlanReportDownload(grok.View):
 
 
     def addMeasure(self, document, section, measure):
+        from rtfng.document.paragraph import Cell
+        from rtfng.document.paragraph import Table
+        from rtfng.PropertySets import TabPropertySet
         normal_style=document.StyleSheet.ParagraphStyles.Normal
 
         t=lambda txt: translate(txt, context=self.request)
-        table=[]
+
+        table=Table(TabPropertySet.DEFAULT_WIDTH, TabPropertySet.DEFAULT_WIDTH*5)
         if measure.action_plan:
-            table.append([t(_("report_measure_actionplan", default=u"Action plan:")), measure.action_plan])
+            table.append(
+                    Cell(Paragraph(normal_style, t(_("report_measure_actionplan", default=u"Action plan:")))),
+                    Cell(Paragraph(normal_style, measure.action_plan)))
         if measure.prevention_plan:
-            table.append([t(_("report_measure_preventionplan", default=u"Prevention plan:")), measure.prevention_plan])
+            table.append(
+                    Cell(Paragraph(normal_style, t(_("report_measure_preventionplan", default=u"Prevention plan:")))),
+                    Cell(Paragraph(normal_style, measure.prevention_plan)))
         if measure.requirements:
-            table.append([t(_("report_measure_requirements", default=u"Requirements:")), measure.requirements])
-#        if table:
-#            body.append(docx.table(table, False))
+            table.append(
+                    Cell(Paragraph(normal_style, t(_("report_measure_requirements", default=u"Requirements:")))),
+                    Cell(Paragraph(normal_style, measure.requirements)))
+        if table.Rows:
+            section.append(table)
 
         if measure.responsible and not (measure.planning_start or measure.planning_end):
             section.append(Paragraph(normal_style, 
@@ -199,16 +209,15 @@ class ActionPlanReportDownload(grok.View):
         document=Document(stylesheet)
         return document
 
+
     def render(self):
         document=self.createDocument()
         self.addIntroduction(document)
+        self.addActionPlan(document)
 
         renderer=Renderer()
         output=StringIO()
         renderer.Write(document, output)
-
-
-#        self.addActionPlan(body)
 
         filename=_("filename_report_actionplan",
                    default=u"Action plan ${title}",
@@ -217,5 +226,4 @@ class ActionPlanReportDownload(grok.View):
         self.request.response.setHeader("Content-Disposition",
                             u"attachment; filename=\"%s.rtf\"" % filename)
         self.request.response.setHeader("Content-Type", "application/rtf")
-        output.seek(0)
-        return output.read()
+        return output.getvalue()
