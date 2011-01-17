@@ -67,7 +67,7 @@ setup(name="Euphorie",
           "zope.schema",
           "NuPlone >=1.0b1",
           "plone.uuid",
-          "docx",
+          "pyrtf-ng",
       ],
       tests_require = [
           "collective.testcaselayer",
