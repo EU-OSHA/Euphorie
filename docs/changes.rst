@@ -4,6 +4,28 @@ Changelog
 6.0 - Unreleased
 -----------------
 
+Upgrade notes
+~~~~~~~~~~~~~
+
+This release updates the profile version to *13*. Please use the upgrade
+feature in ``portal_setup`` to upgrade the ``euphorie.deployment:default``
+profile to this version.
+
+This release also updates the used Plone version to 4.2.3. You are advised to
+perform the Plone migrations through the Zope Management Interface (ZMI).
+
+
+Feature changes
+~~~~~~~~~~~~~~~
+
+Optional profile questions have been replaced with option modules. Previous
+versions supported both, and they did almost exactly the same thing which was a
+source of consution. All existing optional profile questions will automatically
+be converted to optional modules as part of the upgrade.
+
+- Added translations for Finnish (FI) and Lithuanian (LT)
+
+
 Bugfixes
 ~~~~~~~~
 
@@ -15,10 +37,6 @@ Bugfixes
 
 - Registering from within a country skips terms and conditions page.
 
-Feature changes
-~~~~~~~~~~~~~~~
-
-- Added Finnish translations
 
 5.1.1 - Unreleased
 -------------------------
