@@ -24,6 +24,7 @@ source of consution. All existing optional profile questions will automatically
 be converted to optional modules as part of the upgrade.
 
 - Added translations for Finnish (FI) and Lithuanian (LT)
+- Updated Bulgarian translations.
 
 
 Bugfixes
