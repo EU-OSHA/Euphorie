@@ -88,12 +88,18 @@ h1 {
     left: 100%;
 }
 
-#steps ol.microns li {
-
-	background-image: url(microns-osha.png) !important;
-
-}
-
+#steps ol.microns li,
 #steps ol.microns li a {
 	background-image: url(microns-osha.png) !important;
+}
+
+p.notice strong, 
+p.error strong, 
+p.success strong, 
+p.warning strong,
+div.notice strong, 
+div.error strong, 
+div.success strong, 
+div.warning strong {
+	color: #4b4540
 }
