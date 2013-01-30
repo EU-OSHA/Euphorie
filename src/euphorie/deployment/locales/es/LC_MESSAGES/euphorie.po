@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Euphorie 3.0syslab-fr-evaluation-5\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-12 09:09+0200\n"
+"POT-Creation-Date: 2013-01-30 14:30+0200\n"
 "PO-Revision-Date: 2011-03-30 13:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: es <LL@li.org>\n"
@@ -1000,7 +1000,7 @@ msgstr ""
 #: src/euphorie/client/templates/start.pt:39
 #: src/euphorie/client/templates/status.pt:36
 #: src/euphorie/client/templates/survey_sessions.pt:62
-#: src/euphorie/client/templates/updated.pt:73 src/euphorie/content/help.py:40
+#: src/euphorie/client/templates/updated.pt:73
 msgid "label_preparation"
 msgstr ""
 
@@ -1052,7 +1052,7 @@ msgstr ""
 #: src/euphorie/client/templates/start.pt:44
 #: src/euphorie/client/templates/status.pt:42
 #: src/euphorie/client/templates/survey_sessions.pt:66
-#: src/euphorie/client/templates/updated.pt:78 src/euphorie/content/help.py:49
+#: src/euphorie/client/templates/updated.pt:78
 #: src/euphorie/content/templates/colour-preview.pt:40
 msgid "label_identification"
 msgstr ""
@@ -1105,7 +1105,7 @@ msgstr ""
 #: src/euphorie/client/templates/start.pt:48
 #: src/euphorie/client/templates/status.pt:48
 #: src/euphorie/client/templates/survey_sessions.pt:70
-#: src/euphorie/client/templates/updated.pt:82 src/euphorie/content/help.py:57
+#: src/euphorie/client/templates/updated.pt:82
 #: src/euphorie/content/templates/colour-preview.pt:43
 msgid "label_evaluation"
 msgstr ""
@@ -1634,63 +1634,54 @@ msgstr "Ayuda"
 #. Default: Introduction
 #: src/euphorie/client/templates/help.pt:19
 #: src/euphorie/client/templates/help.pt:30
-#: src/euphorie/content/templates/help_view.pt:15
 msgid "help_header_introduction"
 msgstr "Introducción"
 
 #. Default: Authentication
 #: src/euphorie/client/templates/help.pt:20
 #: src/euphorie/client/templates/help.pt:33
-#: src/euphorie/content/templates/help_view.pt:18
 msgid "help_header_authentication"
 msgstr "Autentificación"
 
 #. Default: Sessions
 #: src/euphorie/client/templates/help.pt:21
 #: src/euphorie/client/templates/help.pt:36
-#: src/euphorie/content/templates/help_view.pt:21
 msgid "help_header_sessions"
 msgstr ""
 
 #. Default: Preparation
 #: src/euphorie/client/templates/help.pt:22
 #: src/euphorie/client/templates/help.pt:39
-#: src/euphorie/content/templates/help_view.pt:24
 msgid "help_header_start"
 msgstr "Preparación"
 
 #. Default: Identification
 #: src/euphorie/client/templates/help.pt:23
 #: src/euphorie/client/templates/help.pt:42
-#: src/euphorie/content/templates/help_view.pt:27
 msgid "help_header_identification"
 msgstr "Identificación"
 
 #. Default: Evaluation
 #: src/euphorie/client/templates/help.pt:24
 #: src/euphorie/client/templates/help.pt:45
-#: src/euphorie/content/templates/help_view.pt:30
 msgid "help_header_evaluation"
 msgstr "Evaluación"
 
 #. Default: Action Plan
 #: src/euphorie/client/templates/help.pt:25
 #: src/euphorie/client/templates/help.pt:48
-#: src/euphorie/content/templates/help_view.pt:33
 msgid "help_header_actionplan"
 msgstr "Plan de acción"
 
 #. Default: Report
 #: src/euphorie/client/templates/help.pt:26
 #: src/euphorie/client/templates/help.pt:51
-#: src/euphorie/content/templates/help_view.pt:36
 msgid "help_header_report"
 msgstr "Informe"
 
 #. Default: Final words
 #: src/euphorie/client/templates/help.pt:27
 #: src/euphorie/client/templates/help.pt:54
-#: src/euphorie/content/templates/help_view.pt:39
 msgid "help_header_finalwords"
 msgstr "Palabras finales"
 
@@ -2573,6 +2564,7 @@ msgstr "País potencialmente candidato"
 
 #. Default: Introduction
 #: src/euphorie/content/help.py:15
+#: src/euphorie/content/templates/help_view.pt:15
 msgid "label_help_introduction"
 msgstr "Introducción"
 
@@ -2584,7 +2576,9 @@ msgstr ""
 
 #. Default: Authentication
 #: src/euphorie/content/help.py:23
-msgid "label_authentication"
+#: src/euphorie/content/templates/help_view.pt:18
+#, fuzzy
+msgid "label_help_authentication"
 msgstr "Autentificación"
 
 #. Default: Describe the user handling. This text is linked from the login,
@@ -2595,8 +2589,10 @@ msgstr ""
 
 #. Default: Sessions
 #: src/euphorie/content/help.py:32
-msgid "label_sessions"
-msgstr ""
+#: src/euphorie/content/templates/help_view.pt:21
+#, fuzzy
+msgid "label_help_sessions"
+msgstr "Introducción"
 
 #. Default: Describe the session handling. This text is linked from the session
 #. overview page.
@@ -2604,17 +2600,38 @@ msgstr ""
 msgid "help_sessions"
 msgstr ""
 
+#. Default: Preparation
+#: src/euphorie/content/help.py:40
+#: src/euphorie/content/templates/help_view.pt:24
+#, fuzzy
+msgid "label_help_preparation"
+msgstr "Introducción"
+
 #. Default: Document the first steps in a survey, including how to configure a
 #. profile (if needed). This page is linked from the survey start page.
 #: src/euphorie/content/help.py:41
 msgid "help_preparation"
 msgstr ""
 
+#. Default: Identification
+#: src/euphorie/content/help.py:49
+#: src/euphorie/content/templates/help_view.pt:27
+#, fuzzy
+msgid "label_help_identification"
+msgstr "Iniciar identificación de riesgos"
+
 #. Default: Document the identification phase. This information is linked from
 #. all identification related pages
 #: src/euphorie/content/help.py:50
 msgid "help_identification"
 msgstr ""
+
+#. Default: Evaluation
+#: src/euphorie/content/help.py:57
+#: src/euphorie/content/templates/help_view.pt:30
+#, fuzzy
+msgid "label_help_evaluation"
+msgstr "Realizar evaluación"
 
 #. Default: Document the evaluation phase. This information is linked from all
 #. evaluation related pages
@@ -2623,8 +2640,11 @@ msgid "help_evaluation"
 msgstr ""
 
 #. Default: Action plan
+#. Default: Action Plan
 #: src/euphorie/content/help.py:65
-msgid "label_actionplan"
+#: src/euphorie/content/templates/help_view.pt:33
+#, fuzzy
+msgid "label_help_actionplan"
 msgstr "Plan de acción"
 
 #. Default: Document the action plan phase. This information is linked from all
@@ -2635,7 +2655,9 @@ msgstr ""
 
 #. Default: Reports
 #: src/euphorie/content/help.py:73
-msgid "label_reports"
+#: src/euphorie/content/templates/help_view.pt:36
+#, fuzzy
+msgid "label_help_reports"
 msgstr "Informes"
 
 #. Default: Describe the reporting options. This page is linked from report
@@ -2646,7 +2668,9 @@ msgstr ""
 
 #. Default: Final words
 #: src/euphorie/content/help.py:81
-msgid "label_finalwords"
+#: src/euphorie/content/templates/help_view.pt:39
+#, fuzzy
+msgid "label_help_finalwords"
 msgstr "Palabras finales"
 
 #. Default: Any final words that should be shown at the end of the help. This
