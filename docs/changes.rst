@@ -32,8 +32,10 @@ Bugfixes
 
   - Applied new translations in 13 languages. OSHA tickets #7938, #8190
 
-- Commented out the IE8 warning in the client until we have a solution for
-  translating it. OSHA ticket #7929 
+  - Commented out the IE8 warning in the client until we have a solution for
+    translating it. OSHA ticket #7929 
+  - Add page number to RTF reports. This fixes 
+    `TNO ticket 241 <https://code.simplon.biz/tracker/tno-euphorie/ticket/241>`_.
 
 
 6.0.1 (2013-06-03)
