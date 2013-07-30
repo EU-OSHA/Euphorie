@@ -4,17 +4,12 @@ Changelog
 6.0.2 (Unreleased)
 ------------------
 
-- Fixed #7261: Typo in splash page
-- Added Bulgarian help headers, per #7317
-- Portuguese translations of the splash page. #7870.
-- Translate label_keep_logged_in per #7823.
-- Minor translation fixes and updates. #7830, #7766, #7810, #7829.
-- Made Kosovo, Montenegro and Republic of Serbia translatable,
-  and added bulgarian translations per #7808.
-- Greek translation fixes #7704
-- Commented out IE8 warning, until we have a solution for translating
-  it #7929 
-- PT translation fixes #7934
+  - Portugese translation fixes. OSHA ticket #7934
+
+  - Applied new translations in 12 languages. OSHA ticket #7938
+
+- Commented out the IE8 warning in the client until we have a solution for
+  translating it. OSHA ticket #7929 
 
 
 6.0.1 (2013-06-03)
