@@ -1,8 +1,48 @@
 Changelog
 =========
 
-6.0.2 (Unreleased)
-------------------
+6.1 - Unreleased
+----------------
+
+Feature changes
+~~~~~~~~~~~~~~~
+
+- Add a new *obsolete* flag to survey groups. When a survey with this flag is
+  set is published it will be put into a new group of obsolete surveys in the
+  client. This addresses part of `TNO ticket 200
+  <https://code.simplon.biz/tracker/tno-euphorie/ticket/200>`_.
+
+- Make it possible to edit the survey group title from a survey edit screen.
+  This addresses part of `TNO ticket 200
+  <https://code.simplon.biz/tracker/tno-euphorie/ticket/200>`_.
+
+- Add page number to RTF reports. This fixes 
+  `TNO ticket 241 <https://code.simplon.biz/tracker/tno-euphorie/ticket/241>`_.
+
+- Added MIT Licensed script to display browser warning so that we can support 
+  translations. This addresses part of
+  `OSHA ticket 7847 <https://projects.syslab.com/issues/7847>`_.
+
+Bugfixes
+~~~~~~~~
+
+- Fixed a typo in the client splash page. OSHA ticket #7261.
+
+- Translation updates:
+
+  - Add Bulgarian help headers. OSHA ticket #7317.
+
+  - Add Portuguese translations of the splash page. OSHA ticket #7870.
+
+  - Translate ``label_keep_logged_in`` on the client login page. OSHA ticket #7823.
+
+  - Several minor translation fixes and updates. SOAH tickets #7830, #7766,
+    #7810 and #7829.
+
+  - Kosovo, Montenegro and Republic of Serbia are now translatable, and add
+    bulgarian translations. OSHA ticket #7808.
+
+  - Greek translation fixes. OSHA ticket #7704
 
   - Portugese translation fixes. OSHA ticket #7934
 
