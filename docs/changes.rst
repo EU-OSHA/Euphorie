@@ -1,27 +1,11 @@
 Changelog
 =========
 
-6.1 - Unreleased
+6.0.2syslab4 - Unreleased
 ----------------
 
 Feature changes
 ~~~~~~~~~~~~~~~
-
-- Add a new *obsolete* flag to survey groups. When a survey with this flag is
-  set is published it will be put into a new group of obsolete surveys in the
-  client. This addresses part of `TNO ticket 200
-  <https://code.simplon.biz/tracker/tno-euphorie/ticket/200>`_.
-
-- Make it possible to edit the survey group title from a survey edit screen.
-  This addresses part of `TNO ticket 200
-  <https://code.simplon.biz/tracker/tno-euphorie/ticket/200>`_.
-
-- Add page number to RTF reports. This fixes 
-  `TNO ticket 241 <https://code.simplon.biz/tracker/tno-euphorie/ticket/241>`_.
-
-- Added MIT Licensed script to display browser warning so that we can support 
-  translations. This addresses part of
-  `OSHA ticket 7847 <https://projects.syslab.com/issues/7847>`_.
 
 Bugfixes
 ~~~~~~~~
