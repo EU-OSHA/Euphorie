@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.2 (unreleased)
-----------------
+6.1.4-slc (2013-12-12)
+----------------------
 
 - New translations in Italian (IT) and Icelandic (IS). OSHA #8434
 
