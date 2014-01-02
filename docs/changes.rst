@@ -1,14 +1,21 @@
 Changelog
 =========
 
-6.2.1 - Unreleased
------------------------
+6.2.1 - January 02, 2014
+------------------------
 
 Bugfixes
 ~~~~~~~~
 
 - In the client, write the current language as class into the body tag, so that
   language specific CSS rules can be applied.
+  
+- The default_priority field could overwrite the fixed_priority field when saving
+  a Risk from the edit form.
+
+- Improvements for the mobile view
+
+- Re-ran yui-compression for the CSS files, since some changes had not made it in previously
 
 
 6.2 - December 19, 2013
