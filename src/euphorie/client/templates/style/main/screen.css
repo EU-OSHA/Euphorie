@@ -2837,7 +2837,7 @@ button,
 .accordion dt {
 	position: relative;
 	padding: 5px 20px 6px;
-	margin-right: 10px;
+	margin-right: 0;
 	margin-left: 0;
 	color: #c8c3be;
 	border: 1px solid #7f7f7f;
@@ -2905,6 +2905,7 @@ button.floatBefore,
 .button-medium.floatBefore {
 	float: right;
 	right: 50%;
+	margin-right: 10px;
 }
 
 button.floatAfter,
