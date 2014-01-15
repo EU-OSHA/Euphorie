@@ -2731,13 +2731,13 @@ p.emphasis {
 	color: white;
 }
 
-.message..error {
+.message.error {
 	border-color: #ff1c00;
 	background-color: #ff1c00;
 	color: white;
 }
 
-.message..success {
+.message.success {
 	border-color: #669900;
 	background-color: #3e6b52;
 	color: white
