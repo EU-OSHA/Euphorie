@@ -62,6 +62,10 @@ def AddToTree(root, node, zodb_path=[], title=None, profile_index=0, skip_childr
             else:
                 child.postponed = False
     elif IRisk.providedBy(node):
+        identification = ((
+            getattr(node, "always_present", None) and
+            node.type == 'risk' and
+            "no") or None)
         priority = getattr(node, "default_priority", None)
         if priority == "none":
             priority = None
@@ -74,6 +78,7 @@ def AddToTree(root, node, zodb_path=[], title=None, profile_index=0, skip_childr
         child = model.Risk(title=title,
                          risk_id=node.id,
                          risk_type=node.type,
+                         identification=identification,
                          skip_evaluation=(node.evaluation_method == 'fixed'),
                          probability=node.default_probability,
                          frequency=node.default_frequency,

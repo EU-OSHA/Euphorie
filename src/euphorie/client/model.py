@@ -367,14 +367,26 @@ class SurveySession(BaseObject):
         # Mandatory modules must have skip_children=False. It's possible that
         # the module was optional with skip_children=True and now after the
         # update it's mandatory. So we must check and correct.
+        # Also, new risks that are set to always_present might have been added.
+        # Those need to be pre-answered with No
+        ap_paths = []
         survey = getSite()['client'].restrictedTraverse(self.zodb_path)
         for item in new_items.all():
-            if item.type != 'module':
-                continue
+            if item.type == 'module':
+                module = survey.restrictedTraverse(item.zodb_path.split("/"))
+                if not module.optional:
+                    item.skip_children = False
+            elif item.type == 'risk':
+                risk = survey.restrictedTraverse(item.zodb_path.split("/"))
+                if (
+                    getattr(risk, "always_present", False) and
+                    risk.type == 'risk'
+                ):
+                    ap_paths.append(item.zodb_path)
 
-            module = survey.restrictedTraverse(item.zodb_path.split("/"))
-            if not module.optional:
-                item.skip_children = False
+        formatted_ap_paths = "({0})".format(
+            ",".join(["'{0}'".format(x) for x in ap_paths]))
+
 
 # Copy all risk data to the new session
 # This triggers a "Only update via a single table query is currently supported"
@@ -408,6 +420,22 @@ class SurveySession(BaseObject):
               old_tree.profile_index=tree.profile_index;
         """ % {'old_sessionid': other.id, 'new_sessionid': self.id}
         session.execute(statement)
+
+        # Answer "always present" risks with No
+        if ap_paths:
+            statement = """\
+            UPDATE RISK
+            SET identification = 'no'
+            FROM risk AS old_risk JOIN tree AS old_tree ON old_tree.id=old_risk.id, tree
+            WHERE tree.id=risk.id AND
+                  tree.session_id=%(new_sessionid)s AND
+                  old_tree.session_id=%(old_sessionid)s AND
+                  old_tree.zodb_path=tree.zodb_path AND
+                  old_tree.profile_index=tree.profile_index
+                  AND tree.zodb_path in %(formatted_ap_paths)s
+            """ % {'old_sessionid': other.id, 'new_sessionid': self.id,
+                   'formatted_ap_paths': formatted_ap_paths}
+            session.execute(statement)
 
         statement = """\
         INSERT INTO action_plan (risk_id, action_plan, prevention_plan,
