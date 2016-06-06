@@ -111,15 +111,27 @@ class IRisk(form.Schema, IRichDescription, IBasic):
                     u'carried out. "Policy" refers to agreements, procedures, '
                     u'and management decisions.'),
             vocabulary=SimpleVocabulary([
-                            SimpleTerm(u"top5",
-                                title=_("risktype_top5", default=u"Priority risk")),
-                            SimpleTerm(u"risk",
-                                title=_("risktype_risk", default="Risk")),
-                            SimpleTerm(u"policy",
-                                title=_("risktype_policy", default=u"Policy")),
-                            ]),
+                SimpleTerm(
+                    u"top5", title=_("risktype_top5", default=u"Priority risk")),
+                SimpleTerm(
+                    u"risk", title=_("risktype_risk", default="Risk")),
+                SimpleTerm(
+                    u"policy", title=_("risktype_policy", default=u"Policy")),
+            ]),
             default=u"risk",
             required=True)
+
+    depends("always_present", "type", "==", "risk")
+    risk_always_present = schema.Bool(
+        title=_("label_always_present", default=u"Always present"),
+        description=_(
+            "help_always_present",
+            default=u"If enabled, this risk will automatically be considered "
+            "as being present. The user will not have the option to change "
+            "this."
+        ),
+        default=False,
+    )
 
     depends("evaluation_method", "type", "==", "risk")
     evaluation_method = schema.Choice(
@@ -404,7 +416,7 @@ class IKinneyRisk(IRisk, IKinneyEvaluation):
                 default=u"You can specify how the risks priority is "
                         u"evaluated. For more details see the online "
                         u"manual."),
-            fields=["type", "evaluation_method",
+            fields=["type", "risk_always_present", "evaluation_method",
                     "fixed_priority",
                     "default_priority",
                     "default_probability", "default_frequency",
@@ -418,7 +430,7 @@ class IFrenchRisk(IRisk, IFrenchEvaluation):
                 default=u"You can specify how the risks priority is "
                         u"evaluated. For more details see the online "
                         u"manual."),
-            fields=["type", "evaluation_method",
+            fields=["type", "risk_always_present", "evaluation_method",
                     "fixed_priority",
                     "default_priority",
                     "default_severity", "default_frequency"])
