@@ -491,6 +491,7 @@ class Risk(SurveyTreeItem):
     risk_id = schema.Column(types.String(16), nullable=True)
     risk_type = schema.Column(Enum([u"risk", u"policy", u"top5"]),
         default=u"risk", nullable=False, index=True)
+    always_present = schema.Column(types.Boolean(), default=False, nullable=False)
     #: Skip-evaluation flag. This is only used to indicate if the sector
     #: set the evaluation method to `fixed`, not for policy behaviour
     #: such as not evaluation top-5 risks. That policy behaviour is
