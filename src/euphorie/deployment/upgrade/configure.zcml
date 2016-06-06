@@ -287,4 +287,17 @@
         handler=".v8.drop_constraint_no_duplicates_in_tree"/>
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="17"
+    destination="18"
+    profile="euphorie.deployment:default"
+    >
+
+    <genericsetup:upgradeStep
+      title="Add new column to identify always present risks."
+      description="Add a new bool column to the Risk table, always_present"
+      handler=".v9.add_column_for_always_present_risks"/>
+
+  </genericsetup:upgradeSteps>
+
 </configure>
