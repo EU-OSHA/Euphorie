@@ -1,6 +1,8 @@
 Changelog
 =========
 
+NOTE: Old 7.0 master branch!
+
 7.0.11 (unreleased)
 -------------------
 
